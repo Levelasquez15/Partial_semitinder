@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-link',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./link.component.scss'],
   standalone: false
 })
-export class LinkComponent  implements OnInit {
+export class LinkComponent {
+  @Input() text: string = '';
+  @Input() href?: string;
+  @Input() routerLink?: string | any[];
 
-  constructor() { }
+  @Output() clicked = new EventEmitter<void>();
 
-  ngOnInit() {}
-
+  onClick(event: Event) {
+    event.preventDefault();
+    this.clicked.emit();
+  }
 }

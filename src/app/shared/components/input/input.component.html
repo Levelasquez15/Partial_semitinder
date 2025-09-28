@@ -1,3 +1,11 @@
-<p>
-  input works!
-</p>
+<ion-item>
+  <ion-label *ngIf="label" position="floating">{{ label }}</ion-label>
+  <ion-input
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    (ionInput)="onInput($event)"
+    (ionBlur)="onBlur()">
+  </ion-input>
+</ion-item>

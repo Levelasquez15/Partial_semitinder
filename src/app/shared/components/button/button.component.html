@@ -1,3 +1,9 @@
-<p>
-  button works!
-</p>
+<ion-button
+  [type]="type"
+  [expand]="expand"
+  [color]="color"
+  [disabled]="disabled"
+  (click)="onClick()">
+  {{ label }}
+  <ng-content></ng-content>
+</ion-button>
