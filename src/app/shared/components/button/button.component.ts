@@ -9,7 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ButtonComponent {
   @Input() type: string = 'button';
   @Input() expand: string = 'block';
-  @Input() color: string = 'primary';
+  @Input() color: 'gradient' | 'outline' | 'text' = 'gradient'; // 👈 definimos tipo
   @Input() disabled: boolean = false;
   @Input() label: string = '';
 

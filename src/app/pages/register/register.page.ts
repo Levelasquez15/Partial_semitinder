@@ -10,12 +10,20 @@ import { FirebaseService } from 'src/app/core/services/firebase';
   standalone: false
 })
 export class RegisterPage {
+  step = 1;
+
+  // datos
   firstName = '';
   lastName = '';
   email = '';
   password = '';
   confirmPassword = '';
   country = '';
+  gender = '';
+  birthdate = '';
+  passions: string[] = [];
+  photos: string[] = []; // aquí guardamos las fotos (base64 o url)
+
   errorMsg = '';
 
   constructor(
@@ -24,12 +32,35 @@ export class RegisterPage {
     private router: Router
   ) {}
 
-  async register() {
-    if (!this.email || !this.password || !this.confirmPassword || !this.firstName || !this.lastName || !this.country) {
-      this.errorMsg = 'Todos los campos son obligatorios';
-      return;
-    }
+  nextStep() {
+    this.step++;
+  }
 
+  prevStep() {
+    this.step--;
+  }
+
+  togglePassion(p: string) {
+    if (this.passions.includes(p)) {
+      this.passions = this.passions.filter(x => x !== p);
+    } else {
+      this.passions.push(p);
+    }
+  }
+
+  // ✅ Método corregido para input file
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.photos.push(reader.result as string); // guardamos la foto en base64
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async finishRegister() {
     if (this.password !== this.confirmPassword) {
       this.errorMsg = 'Las contraseñas no coinciden';
       return;
@@ -44,23 +75,16 @@ export class RegisterPage {
           firstName: this.firstName,
           lastName: this.lastName,
           country: this.country,
-          city: '',
-          gender: '',
-          passions: [],
-          photos: [],
+          gender: this.gender,
+          birthdate: this.birthdate,
+          passions: this.passions,
+          photos: this.photos, // aquí se guarda la lista de fotos
           createdAt: new Date().toISOString()
         });
       }
-
-      console.log(' Usuario registrado y guardado en Firestore:', user);
       this.router.navigate(['/home']);
     } catch (error: any) {
-      console.error(' Error en registro:', error);
       this.errorMsg = error.message || 'Error al registrarse';
     }
-  }
-
-  goToLogin() {
-    this.router.navigate(['/login']);
   }
 }

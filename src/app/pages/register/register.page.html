@@ -1,62 +1,73 @@
-<ion-content class="ion-padding">
-  <div class="register-card">
+<ion-content class="register-content ion-padding">
+
+  <!-- LOGO GLOBAL -->
+  <div class="logo-container">
     <img src="assets/icon/tinder.png" alt="Tinder Logo" class="tinder-logo" />
-
-    <h2 class="title">My Information</h2>
-
-    <form (ngSubmit)="register()">
-      <app-input
-        label="First name"
-        type="text"
-        [(ngModel)]="firstName"
-        name="firstName">
-      </app-input>
-
-      <app-input
-        label="Last name"
-        type="text"
-        [(ngModel)]="lastName"
-        name="lastName">
-      </app-input>
-
-      <app-input
-        label="Email"
-        type="email"
-        [(ngModel)]="email"
-        name="email">
-      </app-input>
-
-      <app-input
-        label="Password"
-        type="password"
-        [(ngModel)]="password"
-        name="password">
-      </app-input>
-
-      <app-input
-        label="Country"
-        type="text"
-        [(ngModel)]="country"
-        name="country">
-      </app-input>
-
-      <div class="ion-margin-top">
-        <app-button
-          type="submit"
-          label="Continue">
-        </app-button>
-      </div>
-    </form>
-
-    <div class="ion-text-center ion-margin-top">
-      <app-link
-        text="Already have an account? Log in"
-        [routerLink]="['/login']">
-      </app-link>
-    </div>
-
-    <div *ngIf="errorMsg" class="error">
-      {{ errorMsg }}
-    </div>
   </div>
+
+  <!-- STEP 1 -->
+  <div *ngIf="step === 1" class="register-card">
+    <h2>My Information</h2>
+    <app-input label="First name" [(ngModel)]="firstName"></app-input>
+    <app-input label="Last name" [(ngModel)]="lastName"></app-input>
+    <app-input label="Email" type="email" [(ngModel)]="email"></app-input>
+    <app-input label="Password" type="password" [(ngModel)]="password"></app-input>
+    <app-input label="Confirm Password" type="password" [(ngModel)]="confirmPassword"></app-input>
+    <app-input label="Country" [(ngModel)]="country"></app-input>
+
+    <app-button label="Continue" type="gradient" (click)="nextStep()"></app-button>
+  </div>
+
+  <!-- STEP 2 -->
+<div *ngIf="step === 2" class="register-card">
+  <h2 class="register-title">I am a</h2>
+
+  <app-button label="WOMAN" variant="outline" (clicked)="gender='woman'"></app-button>
+  <app-button label="MAN" variant="outline" (clicked)="gender='man'"></app-button>
+
+  <div class="show-gender">
+    <ion-checkbox color="light"></ion-checkbox>
+    <label>Show my gender on my profile</label>
+  </div>
+
+  <app-button label="Continue" variant="gradient" (clicked)="nextStep()"></app-button>
+  <app-button label="Back" variant="text" (clicked)="prevStep()"></app-button>
+</div>
+
+
+  <!-- STEP 3 -->
+  <div *ngIf="step === 3" class="register-card">
+    <h2>My birthdate</h2>
+    <ion-input type="date" [(ngModel)]="birthdate" class="date-input"></ion-input>
+    <app-button label="Continue" type="gradient" (click)="nextStep()"></app-button>
+    <app-button label="Back" type="text" (click)="prevStep()"></app-button>
+  </div>
+
+  <!-- STEP 4 -->
+  <div *ngIf="step === 4" class="register-card">
+    <h2>Passions</h2>
+    <div class="tags">
+      <ion-chip *ngFor="let p of ['Music','Travel','Gym','Movies','Books']"
+                (click)="togglePassion(p)"
+                [class.active]="passions.includes(p)">
+        {{ p }}
+      </ion-chip>
+    </div>
+    <app-button label="Continue" type="gradient" (click)="nextStep()"></app-button>
+    <app-button label="Back" type="text" (click)="prevStep()"></app-button>
+  </div>
+
+  <!-- STEP 5 -->
+  <div *ngIf="step === 5" class="register-card">
+    <h2>Upload a photo</h2>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" class="file-input"/>
+    <div class="photos-preview">
+      <img *ngFor="let p of photos" [src]="p" class="photo-thumb" />
+    </div>
+    <app-button label="Finish" type="gradient" (click)="finishRegister()"></app-button>
+    <app-button label="Back" type="text" (click)="prevStep()"></app-button>
+  </div>
+
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
 </ion-content>
