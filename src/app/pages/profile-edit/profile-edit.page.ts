@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss'],
+  standalone:false
 })
 export class ProfileEditPage implements OnInit {
 

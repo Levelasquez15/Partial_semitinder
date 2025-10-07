@@ -1,0 +1,47 @@
+ion-content {
+  --background: #ff4458;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card {
+  width: 90%;
+  max-width: 350px;
+  background: transparent;
+  text-align: center;
+}
+
+.tinder-logo {
+  width: 140px;
+  display: block;
+  margin: 40px auto 20px auto;
+}
+
+.title {
+  color: white;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+app-button {
+  margin-top: 20px;
+}
+
+app-link {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #fff;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}

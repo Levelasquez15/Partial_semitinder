@@ -1,35 +1,33 @@
-<ion-content class="login-content" fullscreen>
+<ion-content class="ion-padding">
   <div class="login-card">
-
-    <h1 class="login-title">Iniciar Sesión</h1>
+    <img src="assets/icon/tinder.png" alt="Tinder Logo" class="tinder-logo" />
 
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-
-      <app-input 
-        label="Correo" 
-        type="email" 
+      <app-input
+        label="Email"
+        type="email"
         formControlName="email">
       </app-input>
-      
-      <app-input 
-        label="Contraseña" 
-        type="password" 
+
+      <app-input
+        label="Password"
+        type="password"
         formControlName="password">
       </app-input>
 
-      <app-button 
-        type="submit" 
-        label="Ingresar">
-      </app-button>
-
-      <app-link 
-        text="¿No tienes cuenta? Regístrate" 
+      <app-link
+        text="Don’t have an account?"
         [routerLink]="['/register']">
       </app-link>
 
-      <div *ngIf="errorMsg" class="error">
-        {{ errorMsg }}
-      </div>
+      <app-button
+        type="submit"
+        label="Log In">
+      </app-button>
     </form>
+
+    <div *ngIf="errorMsg" class="error">
+      {{ errorMsg }}
+    </div>
   </div>
 </ion-content>

@@ -1,43 +1,62 @@
 <ion-content class="ion-padding">
   <div class="register-card">
-    <h1 class="ion-text-center">Registro</h1>
+    <img src="assets/icon/tinder.png" alt="Tinder Logo" class="tinder-logo" />
+
+    <h2 class="title">My Information</h2>
 
     <form (ngSubmit)="register()">
-      
       <app-input
-        label="Correo"
+        label="First name"
+        type="text"
+        [(ngModel)]="firstName"
+        name="firstName">
+      </app-input>
+
+      <app-input
+        label="Last name"
+        type="text"
+        [(ngModel)]="lastName"
+        name="lastName">
+      </app-input>
+
+      <app-input
+        label="Email"
         type="email"
         [(ngModel)]="email"
         name="email">
       </app-input>
 
       <app-input
-        label="Contraseña"
+        label="Password"
         type="password"
         [(ngModel)]="password"
         name="password">
       </app-input>
 
       <app-input
-        label="Confirmar contraseña"
-        type="password"
-        [(ngModel)]="confirmPassword"
-        name="confirmPassword">
+        label="Country"
+        type="text"
+        [(ngModel)]="country"
+        name="country">
       </app-input>
 
       <div class="ion-margin-top">
         <app-button
           type="submit"
-          label="Registrarse">
+          label="Continue">
         </app-button>
       </div>
-
-      <div class="ion-text-center ion-margin-top">
-        <app-link
-          text="¿Ya tienes cuenta? Inicia sesión"
-          [routerLink]="['/login']">
-        </app-link>
-      </div>
     </form>
+
+    <div class="ion-text-center ion-margin-top">
+      <app-link
+        text="Already have an account? Log in"
+        [routerLink]="['/login']">
+      </app-link>
+    </div>
+
+    <div *ngIf="errorMsg" class="error">
+      {{ errorMsg }}
+    </div>
   </div>
 </ion-content>
