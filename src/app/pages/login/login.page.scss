@@ -1,5 +1,5 @@
 ion-content {
-  --background: #ff4458;
+  --background: #fc4c64; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,12 +36,21 @@ app-button {
 }
 
 app-link {
-  color: #ffffff;
+  color: #002aff; 
   font-size: 0.9rem;
+  margin-top: 10px;
 }
+
 
 .error {
   color: #fff;
   font-size: 0.85rem;
   margin-top: 10px;
+}
+
+.tinder-logo {
+  width: 160px;   
+  height: auto;
+  display: block;
+  margin: 60px auto 30px auto;
 }
