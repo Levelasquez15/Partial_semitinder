@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth';
 import { FirebaseService } from 'src/app/core/services/firebase';
+import { CountriesService, CountryResponse } from 'src/app/core/services/countries';
 
 @Component({
   selector: 'app-register',
@@ -24,13 +25,32 @@ export class RegisterPage {
   passions: string[] = [];
   photos: string[] = []; // aquí guardamos las fotos (base64 o url)
 
+  countries: string[] = [];
+
   errorMsg = '';
+
 
   constructor(
     private auth: AuthService,
     private firebase: FirebaseService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private countriesService: CountriesService
+  ) {
+    this.loadCountries();
+  }
+
+  loadCountries() {
+    this.countriesService.getCountries().subscribe({
+      next: (res: CountryResponse) => {
+        if (!res.error && res.data) {
+          this.countries = res.data.map(c => c.name).sort();
+        }
+      },
+      error: () => {
+        this.countries = [];
+      }
+    });
+  }
 
 
   nextStep() {

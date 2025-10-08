@@ -12,6 +12,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 
+
+import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { CoreModule } from './core/core-module';
 
@@ -21,7 +23,8 @@ import { CoreModule } from './core/core-module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),

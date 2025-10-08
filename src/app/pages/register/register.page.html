@@ -13,8 +13,12 @@
       <app-input label="Email" type="email" [(ngModel)]="email" class="input-full"></app-input>
       <app-input label="Password" type="password" [(ngModel)]="password" class="input-full"></app-input>
       <app-input label="Confirm Password" type="password" [(ngModel)]="confirmPassword" class="input-full"></app-input>
-      <app-input label="Country" [(ngModel)]="country" class="input-full"></app-input>
-      <app-button label="Continue" type="gradient" class="btn-main" (click)="nextStep()"></app-button>
+      <label class="input-label">Country</label>
+      <ion-select [(ngModel)]="country" class="input-full" interface="popover" placeholder="Select your country">
+        <ion-select-option *ngFor="let c of countries" [value]="c">{{ c }}</ion-select-option>
+      </ion-select>
+  <app-button label="Continue" type="gradient" class="btn-main" (click)="nextStep()"></app-button>
+  <div *ngIf="errorMsg && step === 1" class="error">{{ errorMsg }}</div>
     </div>
 
     <!-- STEP 2 -->
@@ -65,6 +69,6 @@
       <app-button label="Back" type="text" class="btn-back" (click)="prevStep()"></app-button>
     </div>
 
-    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  <!-- El mensaje de error global se elimina para evitar duplicados, ya se muestra en cada paso -->
   </div>
 
