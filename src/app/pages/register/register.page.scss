@@ -1,50 +1,107 @@
+
 .register-content {
   --background: #ff5864;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.register-center {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: 3rem 1.5rem;
-  text-align: center;
-  color: white;
-  font-family: 'Helvetica Neue', sans-serif;
+  justify-content: center;
 }
 
 .logo-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .tinder-logo {
   width: 120px;
   height: auto;
+  margin: 0 auto;
 }
 
 .register-card {
   width: 100%;
   max-width: 350px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 24px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
 }
 
 h2, .register-title {
-  font-weight: 500;
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.7rem;
   color: white;
+}
+
+.input-full {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.btn-main {
+  width: 100%;
+  border-radius: 24px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.btn-back {
+  width: 100%;
+  color: #fff;
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.gender-btns {
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+}
+
+.btn-gender {
+  width: 120px;
+  border-radius: 24px;
+  font-size: 1rem;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-gender.selected {
+  background: #fff;
+  color: #ff5864;
 }
 
 .show-gender {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  gap: 6px;
+  font-size: 0.9rem;
+  gap: 8px;
   margin-top: 10px;
+  margin-bottom: 0.5rem;
 }
 
 ion-checkbox {
@@ -53,4 +110,59 @@ ion-checkbox {
   --checkmark-color: #ff5864;
   --border-color: white;
   --border-width: 1.5px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+ion-chip {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-radius: 18px;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.95rem;
+  border: 1.5px solid #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+ion-chip.active {
+  background: #fff;
+  color: #ff5864;
+  border: 1.5px solid #fff;
+}
+
+.file-input {
+  margin: 0.5rem 0 1rem 0;
+  width: 100%;
+  color: #fff;
+}
+
+.photos-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.photo-thumb {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+}
+
+.error {
+  color: #fff;
+  background: #ff5864;
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 }

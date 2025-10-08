@@ -32,7 +32,46 @@ export class RegisterPage {
     private router: Router
   ) {}
 
+
   nextStep() {
+    this.errorMsg = '';
+    if (this.step === 1) {
+      if (!this.firstName || !this.lastName || !this.email || !this.password || !this.confirmPassword || !this.country) {
+        this.errorMsg = 'Por favor completa todos los campos.';
+        return;
+      }
+      // Validación de email simple
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(this.email)) {
+        this.errorMsg = 'El email no es válido.';
+        return;
+      }
+      if (this.password.length < 6) {
+        this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
+        return;
+      }
+      if (this.password !== this.confirmPassword) {
+        this.errorMsg = 'Las contraseñas no coinciden.';
+        return;
+      }
+    }
+    if (this.step === 2) {
+      if (!this.gender) {
+        this.errorMsg = 'Selecciona tu género.';
+        return;
+      }
+    }
+    if (this.step === 3) {
+      if (!this.birthdate) {
+        this.errorMsg = 'Selecciona tu fecha de nacimiento.';
+        return;
+      }
+    }
+    if (this.step === 4) {
+      if (this.passions.length === 0) {
+        this.errorMsg = 'Selecciona al menos una pasión.';
+        return;
+      }
+    }
     this.step++;
   }
 
@@ -61,11 +100,28 @@ export class RegisterPage {
   }
 
   async finishRegister() {
-    if (this.password !== this.confirmPassword) {
-      this.errorMsg = 'Las contraseñas no coinciden';
+    this.errorMsg = '';
+    // Validar que todos los campos estén completos antes de enviar
+    if (!this.firstName || !this.lastName || !this.email || !this.password || !this.confirmPassword || !this.country || !this.gender || !this.birthdate || this.passions.length === 0) {
+      this.errorMsg = 'Por favor completa todos los campos.';
       return;
     }
-
+    if (this.photos.length === 0) {
+      this.errorMsg = 'Debes subir al menos una foto.';
+      return;
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(this.email)) {
+      this.errorMsg = 'El email no es válido.';
+      return;
+    }
+    if (this.password.length < 6) {
+      this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
+      return;
+    }
+    if (this.password !== this.confirmPassword) {
+      this.errorMsg = 'Las contraseñas no coinciden.';
+      return;
+    }
     try {
       const user = await this.auth.register(this.email, this.password);
       if (user && user.uid) {
