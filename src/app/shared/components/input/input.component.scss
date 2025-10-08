@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: transparent;
+  --highlight-color-focused: transparent;
+  --min-height: 40px;
+  border-bottom: 1px solid white; 
+  margin: 8px 0;
+}
+
+ion-label {
+  color: white !important;
+  font-size: 14px;
+}
+
+ion-input {
+  color: white;
+  --padding-start: 0;
+}
+
+ion-input::placeholder {
+  color: #fce1e4; 
+}

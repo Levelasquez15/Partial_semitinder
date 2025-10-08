@@ -1,0 +1,33 @@
+<ion-content class="ion-padding">
+  <div class="login-card">
+    <img src="assets/icon/tinder.png" alt="Tinder Logo" class="tinder-logo" />
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <app-input
+        label="Email"
+        type="email"
+        formControlName="email">
+      </app-input>
+
+      <app-input
+        label="Password"
+        type="password"
+        formControlName="password">
+      </app-input>
+
+      <app-link
+        text="Don’t have an account?"
+        [routerLink]="['/register']">
+      </app-link>
+
+      <app-button
+        type="submit"
+        label="Log In">
+      </app-button>
+    </form>
+
+    <div *ngIf="errorMsg" class="error">
+      {{ errorMsg }}
+    </div>
+  </div>
+</ion-content>

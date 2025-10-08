@@ -1,0 +1,13 @@
+<a *ngIf="href && !routerLink"
+   [href]="href"
+   class="custom-link"
+   (click)="onClick($event)">
+  {{ text }}
+</a>
+
+<a *ngIf="routerLink"
+   [routerLink]="routerLink"
+   class="custom-link"
+   (click)="onClick($event)">
+  {{ text }}
+</a>

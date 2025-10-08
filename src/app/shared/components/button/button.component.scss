@@ -1,0 +1,64 @@
+ion-button {
+  width: 100%;
+  height: 48px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  --box-shadow: none;
+  --ripple-color: transparent;
+  transition: all 0.3s ease;
+}
+
+/* === Personalización interna del ion-button === */
+ion-button::part(native) {
+  border-radius: 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: none !important;
+}
+
+/* 🌈 GRADIENT (Continue button) */
+ion-button.gradient::part(native) {
+  background: linear-gradient(90deg, #ff9966 0%, #ff5e62 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+ion-button.gradient:hover::part(native),
+ion-button.gradient:active::part(native) {
+  transform: scale(1.03);
+}
+
+/* ⚪ OUTLINE (WOMAN / MAN buttons) */
+ion-button.outline::part(native) {
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  box-shadow: none !important;
+}
+
+/* Hover / Active con leve retroalimentación */
+ion-button.outline:hover::part(native),
+ion-button.outline:active::part(native) {
+  background: rgba(255, 255, 255, 0.15) !important; /* opcional, leve brillo */
+  transform: scale(1.03);
+}
+
+/* 🔤 TEXT (Back button) */
+ion-button.text::part(native) {
+  background: transparent !important;
+  color: #fff !important;
+  text-decoration: underline;
+  opacity: 0.8;
+  font-size: 14px;
+  height: auto;
+  box-shadow: none !important;
+}
+
+ion-button.text:hover::part(native),
+ion-button.text:active::part(native) {
+  opacity: 1;
+  transform: scale(1.02);
+}
