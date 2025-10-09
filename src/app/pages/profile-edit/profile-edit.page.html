@@ -1,13 +1,82 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>profile-edit</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile-edit</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="profile-content">
+  <div class="container">
+    <ng-container *ngIf="!loading; else loadingTpl">
+      <div class="avatar">
+  <img [src]="photos[0] || 'assets/icon/favicon.png'" alt="avatar" />
+      </div>
+
+      <ion-list class="edit-list" lines="none">
+        <ion-item>
+          <ion-label position="stacked">First name</ion-label>
+          <ion-input [(ngModel)]="user.name" (ionBlur)="saveField('name')"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Last name</ion-label>
+          <ion-input [(ngModel)]="user.lastName" (ionBlur)="saveField('lastName')"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Country</ion-label>
+          <ion-select interface="popover" [value]="user.country" (ionChange)="onCountryChange($event)">
+            <ion-select-option *ngFor="let c of countries" [value]="c">{{ c }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <div class="passions">
+        <div class="row">
+          <ion-label>Passions</ion-label>
+          <ion-button size="small" fill="clear" (click)="addPassion()">
+            <ion-icon name="add-circle" color="danger"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="chips">
+          <ion-chip *ngFor="let p of passionsChips">
+            <ion-label>{{ p }}</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+
+      <div class="add-media">
+        <div class="title">Add media</div>
+        <button class="add-round" (click)="onAddMedia()">
+          <ion-icon name="add" color="danger"></ion-icon>
+        </button>
+        <div class="grid">
+          <div class="ph" *ngFor="let p of photos; index as i">
+            <img [src]="p" />
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <ion-button fill="clear" class="nav-btn" color="medium" routerLink="/home">
+          <ion-icon name="mail-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="nav-btn" color="medium">
+          <ion-icon name="globe-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="nav-btn" color="medium">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="nav-btn" color="danger">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <ion-spinner name="crescent"></ion-spinner>
+    </ng-template>
+
+    <div class="error" *ngIf="!loading && errorMsg">{{ errorMsg }}</div>
+  </div>
 </ion-content>

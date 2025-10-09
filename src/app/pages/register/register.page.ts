@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth';
 import { FirebaseService } from 'src/app/core/services/firebase';
 import { CountriesService, CountryResponse } from 'src/app/core/services/countries';
-import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { Supabase } from 'src/app/core/services/supabase';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -42,7 +43,8 @@ export class RegisterPage {
     private firebase: FirebaseService,
     private router: Router,
     private countriesService: CountriesService,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private supabase: Supabase
   ) {
     this.loadCountries();
   }
@@ -171,26 +173,26 @@ export class RegisterPage {
     }
   }
 
-  // 📸 Método para subir fotos en segundo plano (no bloquea el registro)
+  // 📸 Método para subir fotos en segundo plano a Supabase (no bloquea el registro)
   async uploadPhotosInBackground(userId: string) {
     try {
-      const storage = getStorage();
-      let photoUrls: string[] = [];
-      
+      const photoUrls: string[] = [];
       for (let i = 0; i < this.photos.length; i++) {
-        const base64 = this.photos[i];
-        const photoRef = ref(storage, `users/${userId}/photo_${Date.now()}_${i}.jpg`);
-        await uploadString(photoRef, base64, 'data_url');
-        const url = await getDownloadURL(photoRef);
-        photoUrls.push(url);
+        const dataUrl = this.photos[i];
+        try {
+          const resp = await fetch(dataUrl);
+          const blob = await resp.blob();
+          const url = await this.supabase.uploadPhoto(blob, environment.supabaseBucket || 'imagnes', userId);
+          photoUrls.push(url);
+        } catch (innerErr) {
+          console.error(`Error subiendo foto ${i + 1} a Supabase:`, innerErr);
+        }
       }
-      
-      // Actualizar el documento del usuario con las URLs de las fotos
-      await this.firebase.updateUserPhotos(userId, photoUrls);
-      
+      if (photoUrls.length > 0) {
+        await this.firebase.updateUserPhotos(userId, photoUrls);
+      }
     } catch (error: any) {
-      console.error('Error subiendo fotos en segundo plano:', error);
-      // No mostrar error al usuario, solo log
+      console.error('Error subiendo fotos en segundo plano (Supabase):', error);
     }
   }
 

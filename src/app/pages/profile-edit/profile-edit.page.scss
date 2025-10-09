@@ -1,0 +1,92 @@
+.profile-content {
+	--ion-background-color: #fff;
+}
+
+.container {
+	padding: 16px;
+}
+
+.edit-list ion-item {
+	--background: transparent;
+	--ion-item-background: transparent;
+	--inner-padding-top: 10px;
+	--inner-padding-bottom: 10px;
+	--padding-start: 0;
+	--padding-end: 0;
+	border-bottom: 1px solid #ff385c;
+}
+.edit-list ion-item::part(native) { background: transparent !important; }
+.edit-list ion-item::part(container) { background: transparent !important; }
+.edit-list ion-label {
+	font-size: 12px;
+	color: #333;
+}
+.edit-list ion-input {
+	--padding-start: 0;
+	--padding-end: 0;
+	color: #111;
+	--background: transparent;
+}
+.edit-list ion-input::part(native) { background: transparent !important; }
+
+.avatar {
+	width: 96px;
+	height: 96px;
+	border-radius: 16px;
+	overflow: hidden;
+	margin: 12px auto;
+	box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.passions { padding: 12px 0; display: flex; flex-direction: column; gap: 8px; }
+.passions .row { display: flex; align-items: center; justify-content: space-between; }
+.passions .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.passions ion-chip { --background: #ffe6eb; color: #ff385c; border-radius: 16px; }
+.passions ion-chip ion-label { font-weight: 500; }
+
+.add-media { padding: 12px 0; }
+.add-media { padding: 12px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.add-media .title { color: #ff385c; font-weight: 600; }
+.grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 8px;
+}
+.ph {
+	aspect-ratio: 1/1;
+	border-radius: 10px;
+	overflow: hidden;
+	background: #f1f1f1;
+}
+.ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.add-round {
+	aspect-ratio: 1/1;
+	border-radius: 10px;
+	border: 2px dashed #ff385c;
+	color: #ff385c;
+	display: grid;
+	place-items: center;
+	background: transparent;
+}
+
+.error { color: #ff7676; padding: 8px; }
+
+.bottom-nav {
+	margin: 16px auto 8px;
+	width: 88vw;
+	max-width: 360px;
+	padding: 8px 16px;
+	border: 1.5px solid #ff385c;
+	border-radius: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background: #fff;
+	color: #ff385c;
+}
+.nav-btn ion-icon { font-size: 20px; }
+
+/* Evitar focus dentro de páginas ocultas de Ionic para reducir los avisos de aria-hidden */
+ion-app .ion-page.ion-page-hidden { pointer-events: none; }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone, EnvironmentInjector } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
@@ -7,12 +7,12 @@ import { from, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private auth: Auth, private firestore: Firestore) {}
+  constructor(private auth: Auth, private firestore: Firestore, private zone: NgZone, private env: EnvironmentInjector) {}
 
   // 👉 Registrar usuario + guardar en Firestore
   async register(email: string, password: string) {
     try {
-      const res = await createUserWithEmailAndPassword(this.auth, email, password);
+  const res = await this.env.runInContext(() => createUserWithEmailAndPassword(this.auth, email, password));
       const user = res.user;
 
       // Crear documento del usuario
@@ -32,7 +32,7 @@ export class AuthService {
   // 👉 Iniciar sesión
   async login(email: string, password: string) {
     try {
-      const res = await signInWithEmailAndPassword(this.auth, email, password);
+  const res = await this.env.runInContext(() => signInWithEmailAndPassword(this.auth, email, password));
       return res.user;
     } catch (error) {
       throw error;
@@ -41,7 +41,7 @@ export class AuthService {
 
   // 👉 Cerrar sesión
   logout(): Promise<void> {
-    return signOut(this.auth);
+    return this.env.runInContext(() => signOut(this.auth));
   }
 
   // 👉 Obtener usuario actual

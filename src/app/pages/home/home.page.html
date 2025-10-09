@@ -1,13 +1,44 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title class="discover-title">Discover</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="home-content">
+  <div class="container">
+    <ng-container *ngIf="!loading && currentProfile; else loadingTpl">
+      <div class="card" (click)="openProfileDetail()">
+  <img class="card-img" [src]="currentProfile?.photos?.[0] || 'assets/icon/favicon.png'" alt="profile" />
+        <div class="badge" *ngIf="currentProfile?.distanceKm">{{ currentProfile.distanceKm }} Km</div>
+        <div class="brand">
+          <ion-icon name="flame"></ion-icon>
+        </div>
+        <div class="card-info">
+          <div class="name">{{ currentProfile?.name || 'Jane Doe' }}, {{ currentProfile?.age || 25 }}</div>
+          <div class="meta">{{ currentProfile?.bio || 'Heterosexual, Católica' }}</div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <ion-button fill="clear" class="nav-btn" color="medium">
+          <ion-icon name="mail-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="nav-btn" color="medium">
+          <ion-icon name="globe-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="nav-btn" color="medium">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" class="nav-btn" color="danger" (click)="goToProfileEdit()">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ng-container>
+
+    <ng-template #loadingTpl>
+      <ion-spinner name="crescent"></ion-spinner>
+    </ng-template>
+
+    <div class="error" *ngIf="!loading && errorMsg">{{ errorMsg }}</div>
+  </div>
 </ion-content>
