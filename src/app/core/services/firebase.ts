@@ -19,4 +19,10 @@ export class FirebaseService {
     const snap = await getDoc(userRef);
     return snap.exists() ? snap.data() : null;
   }
+
+  // Actualiza solo las fotos del usuario
+  async updateUserPhotos(uid: string, photoUrls: string[]): Promise<void> {
+    const userRef = doc(this.firestore, `users/${uid}`);
+    await setDoc(userRef, { photos: photoUrls }, { merge: true });
+  }
 }

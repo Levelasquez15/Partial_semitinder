@@ -61,11 +61,15 @@
     <!-- STEP 5 -->
     <div *ngIf="step === 5" class="register-card">
       <h2>Add media</h2>
-      <input type="file" accept="image/*" (change)="onFileSelected($event)" class="file-input" multiple />
+  <button ion-button class="add-media-btn" (click)="addMedia()">
+    <ion-icon name="camera" style="font-size: 2em;"></ion-icon>
+  </button>
+  <div *ngIf="photos.length > 0" class="photos-count">Fotos seleccionadas: {{ photos.length }}</div>
       <div class="photos-preview">
         <img *ngFor="let p of photos" [src]="p" class="photo-thumb" />
       </div>
-      <app-button label="Finish" type="gradient" class="btn-main" (click)="finishRegister()"></app-button>
+  <app-button label="Finish" type="gradient" class="btn-main" (click)="finishRegister()"></app-button>
+  <div *ngIf="errorMsg && step === 5" class="error">{{ errorMsg }}</div>
       <app-button label="Back" type="text" class="btn-back" (click)="prevStep()"></app-button>
     </div>
 

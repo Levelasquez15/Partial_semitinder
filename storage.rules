@@ -1,0 +1,31 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function validImage() {
+      return request.resource != null
+             && request.resource.size < 5 * 1024 * 1024 // < 5MB
+             && request.resource.contentType.matches('image/.*');
+    }
+
+    // All user photos uploaded at path users/{uid}/photo_*.jpg
+    match /users/{uid}/{fileName} {
+      // Public read; change to isSignedIn() or isOwner(uid) if you want restriction
+      allow read: if true;
+      allow write: if isOwner(uid) && validImage();
+    }
+
+    // Block everything else explicitly
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
